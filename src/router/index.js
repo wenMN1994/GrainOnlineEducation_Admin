@@ -44,7 +44,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/teacher/list',
     name: '讲师管理',
-    meta: { title: '讲师管理', icon: 'example' },
+    meta: { title: '讲师管理', icon: 'user' },
     children: [
       {
         path: 'list',
@@ -88,6 +88,51 @@ export const constantRouterMap = [
         component: () => import('@/views/subject/import'),
         meta: { title: '课程分类导入', icon: 'tree' }
       }
+    ]
+  },
+
+  // 课程管理
+  {
+    path: '/course',
+    component: Layout,
+    redirect: '/course/list',
+    name: '课程管理',
+    meta: { title: '课程管理', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: '课程列表',
+        component: () => import('@/views/course/list'),
+        meta: { title: '课程列表', icon: 'table' }
+      },
+      {
+        path: 'info',
+        name: '发布课程',
+        component: () => import('@/views/course/info'),
+        meta: { title: '发布课程', icon: 'tree' }
+      },
+      {
+        path: 'info/:id',
+        name: 'EduCourseInfoEdit',
+        component: () => import('@/views/course/info'),
+        meta: { title: '编辑课程基本信息', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'chapter/:id',
+        name: 'EduCourseChapterEdit',
+        component: () => import('@/views/course/chapter'),
+        meta: { title: '编辑课程大纲', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'publish/:id',
+        name: 'EduCoursePublishEdit',
+        component: () => import('@/views/course/publish'),
+        meta: { title: '发布课程', noCache: true },
+        hidden: true
+      }
+
     ]
   },
 
