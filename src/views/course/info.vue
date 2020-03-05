@@ -135,9 +135,40 @@ export default {
 
   methods: {
     init() {
-      this.initSubjectList()
-      // 获取讲师列表
-      this.initTeacherList()
+      if (this.$route.params && this.$route.params.id) {
+        const id = this.$route.params.id
+        console.log(id)
+        // 根据id获取课程基本信息
+        this.getCourseInfoById(id)
+      } else {
+        this.courseInfo = { eduCourse, eduCourseDesc }
+        this.initSubjectList()
+        // 获取讲师列表
+        this.initTeacherList()
+      }
+    },
+    getCourseInfoById(id) {
+      course.getCourseInfoById(id)
+        .then(response => {
+          this.courseInfo = response.data.courseInfo
+          // 初始化课程分类列表
+          subject.getNestedTreeList().then(responseSubject => {
+            this.subjectNestedList = responseSubject.data.subjectList
+            for (let i = 0; i < this.subjectNestedList.length; i++) {
+              if (this.subjectNestedList[i].id === this.courseInfo.eduCourse.subjectParentId) {
+                this.subSubjectList = this.subjectNestedList[i].children
+              }
+            }
+          })
+
+          // 获取讲师列表
+          this.initTeacherList()
+        }).catch((response) => {
+          this.$message({
+            type: 'error',
+            message: response.message
+          })
+        })
     },
     initTeacherList() {
       teacher.getList()
@@ -179,8 +210,16 @@ export default {
       }
       return isJPG && isLt2M
     },
+    // 根据课程ID判断是保存还是修改
     next() {
       console.log('next')
+      if (!this.courseInfo.eduCourse.id) {
+        this.saveVo()
+      } else {
+        this.updateVo()
+      }
+    },
+    saveVo() {
       course.saveCourseInfo(this.courseInfo)
         .then(response => {
           this.$message({
@@ -194,7 +233,22 @@ export default {
             type: 'error',
             message: '保存失败'
           })
-          this.$router.push({ path: '/course/chapter/' + response.data.id })
+        })
+    },
+    updateVo() {
+      course.updateCourseInfo(this.courseInfo)
+        .then(response => {
+          this.$message({
+            type: 'success',
+            message: '更新成功'
+          })
+          this.$router.push({ path: '/course/chapter/' + this.courseInfo.eduCourse.id })
+        })
+        .catch(response => {
+          this.$message({
+            type: 'error',
+            message: '更新失败'
+          })
         })
     }
   }
