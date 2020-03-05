@@ -22,5 +22,12 @@ export default {
       url: `${api_name}/${id}`,
       method: 'get'
     })
+  },
+  getPageList(page, limit, searchObj) {
+    return request({
+      url: `${api_name}/${page}/${limit}`,
+      method: 'post',
+      data: searchObj
+    })
   }
 }
