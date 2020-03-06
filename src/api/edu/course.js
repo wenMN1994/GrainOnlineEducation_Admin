@@ -35,6 +35,18 @@ export default {
       url: `${api_name}/${id}`,
       method: 'delete'
     })
+  },
+  getCoursePublishVoById(id) {
+    return request({
+      url: `${api_name}/vo/${id}`,
+      method: 'get'
+    })
+  },
+  updateStatusById(id) {
+    return request({
+      url: `${api_name}/updateStatus/${id}`,
+      method: 'put'
+    })
   }
 
 }
