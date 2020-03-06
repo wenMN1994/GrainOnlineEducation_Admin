@@ -16,5 +16,24 @@ export default {
       method: 'post',
       data: chapter
     })
+  },
+  getChapterById(id) {
+    return request({
+      url: `${api_name}/get/${id}`,
+      method: 'get'
+    })
+  },
+  updateById(chapter) {
+    return request({
+      url: `${api_name}/update`,
+      method: 'put',
+      data: chapter
+    })
+  },
+  removeById(id) {
+    return request({
+      url: `${api_name}/${id}`,
+      method: 'delete'
+    })
   }
 }
