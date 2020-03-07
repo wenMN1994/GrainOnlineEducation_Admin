@@ -102,7 +102,7 @@
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVideoFormVisible = false">取 消</el-button>
+        <el-button @click="dialogVideoFormVisible = false;helpSaveVideo()">取 消</el-button>
         <el-button :disabled="saveVideoBtnDisabled" type="primary" @click="saveOrUpdateVideo">确 定</el-button>
       </div>
     </el-dialog>
@@ -136,7 +136,9 @@ export default {
         isFree: 0,
         chapterId: '',
         courseId: '',
-        videoSourceId: ''
+        videoSourceId: '',
+        videoOriginalName: ''
+
       },
       fileList: [],
       BASE_API: process.env.BASE_API
@@ -251,6 +253,9 @@ export default {
       this.dialogVideoFormVisible = true
       video.getVideoById(videoId).then(response => {
         this.video = response.data.eduVideo
+        if (this.video.videoOriginalName) {
+          this.fileList = [{ 'name': this.video.videoOriginalName }]
+        }
       })
     },
 
@@ -297,6 +302,7 @@ export default {
     // 视频上传成功后赋值
     handleVodUploadSuccess(response, file, fileList) {
       this.video.videoSourceId = response.data.videoSourceId
+      this.video.videoOriginalName = file.name
     },
 
     // 视图上传多于一个视频
@@ -310,12 +316,16 @@ export default {
     },
     handleVodRemove(file, fileList) {
       console.log(file)
-      vod.removeById(this.video.videoSourceId).then(response => {
-        this.$message({
-          type: 'success',
-          message: response.message
+      vod.removeById(this.video.videoSourceId)
+        .then(response => {
+          this.video.videoSourceId = ''
+          this.video.videoOriginalName = ''
+          this.fileList = []
+          this.$message({
+            type: 'success',
+            message: response.message
+          })
         })
-      })
     },
 
     previous() {
@@ -346,6 +356,8 @@ export default {
       this.video.title = ''// 重置章节标题
       this.video.sort = 0// 重置章节标题
       this.video.videoSourceId = ''// 重置视频资源id
+      this.video.videoOriginalName = ''// 重置视频资源名称
+      this.fileList = []
       this.saveVideoBtnDisabled = false
     }
   }
