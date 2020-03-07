@@ -113,6 +113,7 @@
 <script>
 import chapter from '@/api/edu/chapter'
 import video from '@/api/edu/video'
+import vod from '@/api/edu/vod'
 
 export default {
   data() {
@@ -301,6 +302,20 @@ export default {
     // 视图上传多于一个视频
     handleUploadExceed(files, fileList) {
       this.$message.warning('想要重新上传视频，请先删除已上传的视频')
+    },
+
+    // 删除视频
+    beforeVodRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`)
+    },
+    handleVodRemove(file, fileList) {
+      console.log(file)
+      vod.removeById(this.video.videoSourceId).then(response => {
+        this.$message({
+          type: 'success',
+          message: response.message
+        })
+      })
     },
 
     previous() {
