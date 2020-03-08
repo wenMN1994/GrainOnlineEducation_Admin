@@ -44,7 +44,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/teacher/list',
     name: '讲师管理',
-    meta: { title: '讲师管理', icon: 'user' },
+    meta: { title: '讲师管理', icon: 'users' },
     children: [
       {
         path: 'list',
@@ -74,7 +74,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/subject/list',
     name: '课程分类管理',
-    meta: { title: '课程分类管理', icon: 'example' },
+    meta: { title: '课程分类管理', icon: 'classify_select' },
     children: [
       {
         path: 'list',
@@ -97,7 +97,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/course/list',
     name: '课程管理',
-    meta: { title: '课程管理', icon: 'example' },
+    meta: { title: '课程管理', icon: 'manage' },
     children: [
       {
         path: 'list',
