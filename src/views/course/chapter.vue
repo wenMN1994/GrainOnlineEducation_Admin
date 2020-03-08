@@ -230,43 +230,49 @@ export default {
 
     saveOrUpdateVideo() {
       this.saveVideoBtnDisabled = true
-      if (!this.video.id) {
-        this.saveDataVideo()
-      } else {
+      if (this.video.id) {
         this.updateDataVideo()
+      } else {
+        this.saveDataVideo()
       }
     },
 
     saveDataVideo() {
       this.video.courseId = this.courseId
       this.video.chapterId = this.chapterId
-      video.saveVideo(this.video).then(response => {
-        this.$message({
-          type: 'success',
-          message: '保存成功!'
+      video.saveVideo(this.video)
+        .then(response => {
+          this.$message({
+            type: 'success',
+            message: '保存成功!'
+          })
+          this.helpSaveVideo()
         })
-        this.helpSaveVideo()
-      })
     },
 
     editVideo(videoId) {
       this.dialogVideoFormVisible = true
-      video.getVideoById(videoId).then(response => {
-        this.video = response.data.eduVideo
-        if (this.video.videoOriginalName) {
-          this.fileList = [{ 'name': this.video.videoOriginalName }]
-        }
-      })
+      video.getVideoById(videoId)
+        .then(response => {
+          this.video = response.data.eduVideo
+          if (this.video.videoOriginalName) {
+            this.fileList = [{ 'name': this.video.videoOriginalName }]
+          }
+        })
     },
 
     updateDataVideo() {
-      video.updateVideo(this.video).then(response => {
-        this.$message({
-          type: 'success',
-          message: '修改成功!'
+      video.updateVideo(this.video)
+        .then(response => {
+          this.$message({
+            type: 'success',
+            message: '修改成功!'
+          })
+          this.helpSaveVideo()
         })
-        this.helpSaveVideo()
-      })
+        .catch(() => {
+          this.helpSaveVideo()
+        })
     },
 
     removeVideo(videoId) {
@@ -353,8 +359,10 @@ export default {
     helpSaveVideo() {
       this.dialogVideoFormVisible = false// 如果保存成功则关闭对话框
       this.getChapterAndVideoByCourseId(this.courseId)// 刷新列表
+      this.video.id = ''
       this.video.title = ''// 重置章节标题
       this.video.sort = 0// 重置章节标题
+      this.video.isFree = 0 // 重置小节是否免费
       this.video.videoSourceId = ''// 重置视频资源id
       this.video.videoOriginalName = ''// 重置视频资源名称
       this.fileList = []
