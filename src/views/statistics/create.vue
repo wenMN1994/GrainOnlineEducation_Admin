@@ -35,6 +35,8 @@ export default {
           type: 'success',
           message: '生成统计数据成功'
         })
+        // 跳转到图表显示页面
+        this.$router.push({ path: '/statistics/chart' })
       })
     }
   }

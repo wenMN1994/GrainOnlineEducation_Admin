@@ -139,7 +139,7 @@ export const constantRouterMap = [
   {
     path: '/statistics',
     component: Layout,
-    redirect: '/statistics/show',
+    redirect: '/statistics/chart',
     name: '统计分析',
     meta: { title: '统计分析', icon: 'chart' },
     children: [
@@ -150,9 +150,9 @@ export const constantRouterMap = [
         meta: { title: '生成数据', icon: 'table' }
       },
       {
-        path: 'show',
+        path: 'chart',
         name: '图表显示',
-        component: () => import('@/views/statistics/show'),
+        component: () => import('@/views/statistics/chart'),
         meta: { title: '图表显示', icon: 'tree' }
       }
 
