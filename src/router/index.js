@@ -50,13 +50,13 @@ export const constantRouterMap = [
         path: 'list',
         name: '讲师列表',
         component: () => import('@/views/teacher/list'),
-        meta: { title: '讲师列表', icon: 'table' }
+        meta: { title: '讲师列表', icon: 'list' }
       },
       {
         path: 'add',
         name: '讲师新增',
         component: () => import('@/views/teacher/form'),
-        meta: { title: '讲师新增', icon: 'tree' }
+        meta: { title: '讲师新增', icon: 'addUser' }
       },
       {
         path: 'edit/:id', // :用来传递参数
@@ -80,13 +80,13 @@ export const constantRouterMap = [
         path: 'list',
         name: '课程分类列表',
         component: () => import('@/views/subject/list'),
-        meta: { title: '课程分类列表', icon: 'table' }
+        meta: { title: '课程分类列表', icon: 'list' }
       },
       {
         path: 'import',
         name: '课程分类导入',
         component: () => import('@/views/subject/import'),
-        meta: { title: '课程分类导入', icon: 'tree' }
+        meta: { title: '课程分类导入', icon: 'import' }
       }
     ]
   },
@@ -103,13 +103,13 @@ export const constantRouterMap = [
         path: 'list',
         name: '课程列表',
         component: () => import('@/views/course/list'),
-        meta: { title: '课程列表', icon: 'table' }
+        meta: { title: '课程列表', icon: 'list' }
       },
       {
         path: 'info',
         name: '发布课程',
         component: () => import('@/views/course/info'),
-        meta: { title: '发布课程', icon: 'tree' }
+        meta: { title: '发布课程', icon: 'publish' }
       },
       {
         path: 'info/:id',
@@ -147,26 +147,15 @@ export const constantRouterMap = [
         path: 'create',
         name: '生成数据',
         component: () => import('@/views/statistics/create'),
-        meta: { title: '生成数据', icon: 'table' }
+        meta: { title: '生成数据', icon: 'data' }
       },
       {
         path: 'chart',
         name: '图表显示',
         component: () => import('@/views/statistics/chart'),
-        meta: { title: '图表显示', icon: 'tree' }
+        meta: { title: '图表显示', icon: 'report' }
       }
 
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
     ]
   },
 
