@@ -44,7 +44,7 @@
           :width="300"
           :height="300"
           :key="imagecropperKey"
-          :url="BASE_API+'/oss/file/upload'"
+          :url="BASE_API+'/oss/file/upload?host=avatar'"
           field="file"
           @close="close"
           @crop-upload-success="cropSuccess"/>
@@ -152,7 +152,7 @@ export default {
         .catch(response => {
           this.$message({
             type: 'error',
-            message: response.data.message
+            message: '修改失败'
           })
         })
     },
