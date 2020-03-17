@@ -30,11 +30,11 @@ export const constantRouterMap = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: '首页',
-    hidden: true,
+    name: 'Dashboard',
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '谷粒学院后台首页', icon: 'dashboard' }
     }]
   },
 
